@@ -5,6 +5,7 @@ import { Pokemon } from './entities/pokemon.entity';
 
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class PokemonService {
@@ -26,8 +27,16 @@ export class PokemonService {
     
   }
 
-  async findAll() {
-    return await this.pokemonModel.find({});
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, ofset = 0} = paginationDto;
+
+    return await this.pokemonModel.find()
+      .limit(limit)
+      .skip(ofset)
+      .sort({
+        no: 1
+      })
+      .select('-__v')
   }
 
   async findOne(term: string) {
@@ -75,7 +84,20 @@ export class PokemonService {
 
     return;
   }
-
+  
+  async createMany (createPokemonDto: CreatePokemonDto[]) {
+    createPokemonDto.forEach(poke => {
+      poke.name = poke.name.toLowerCase();
+    });
+    
+    try {
+      const pokemon = await this.pokemonModel.create( createPokemonDto );
+      return pokemon;
+    } catch(e) {
+      this.handleExceptions(e);
+    }
+  }
+  
   private handleExceptions (e: any) {
     if(e.code === 11000) {
       throw new BadRequestException(`Pokemon exists in db ${JSON.stringify(e.keyValue)}`);
