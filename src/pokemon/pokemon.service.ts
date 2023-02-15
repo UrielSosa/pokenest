@@ -75,7 +75,20 @@ export class PokemonService {
 
     return;
   }
-
+  
+  async createMany (createPokemonDto: CreatePokemonDto[]) {
+    createPokemonDto.forEach(poke => {
+      poke.name = poke.name.toLowerCase();
+    });
+    
+    try {
+      const pokemon = await this.pokemonModel.create( createPokemonDto );
+      return pokemon;
+    } catch(e) {
+      this.handleExceptions(e);
+    }
+  }
+  
   private handleExceptions (e: any) {
     if(e.code === 11000) {
       throw new BadRequestException(`Pokemon exists in db ${JSON.stringify(e.keyValue)}`);
