@@ -17,7 +17,13 @@ npm i -g @nestjs/cli
 ```
 docker-compose up -d
 ```
-5. Reconstruir la db con el seed
+5. Copiar y renombrar el **.env.example** a **.env**
+6. Completar el **.env** con los valores que se requieren
+7. Correr la aplicación
+```
+yarn start:dev
+```
+8. Reconstruir la db con el seed
 ```
 http://localhost:3000/api/v2/seed
 ```
