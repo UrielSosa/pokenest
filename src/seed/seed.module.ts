@@ -7,9 +7,6 @@ import { SeedController } from './seed.controller';
 @Module({
   controllers: [SeedController],
   providers: [SeedService],
-  imports: [
-    PokemonModule,
-    CommonModule
-  ]
+  imports: [PokemonModule, CommonModule],
 })
 export class SeedModule {}

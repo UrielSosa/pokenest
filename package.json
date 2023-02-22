@@ -1,8 +1,8 @@
 {
   "name": "pokedex",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API REST de pokemons",
+  "author": "UrielSosa",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

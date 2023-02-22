@@ -13,10 +13,10 @@ import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
     MongooseModule.forFeature([
       {
         name: Pokemon.name,
-        schema: PokemonSchema
-      }
-    ])
+        schema: PokemonSchema,
+      },
+    ]),
   ],
-  exports: [MongooseModule]
+  exports: [MongooseModule],
 })
 export class PokemonModule {}
